@@ -4,3 +4,5 @@ from companyBlog import db
 from companyBlog.models import User, BlogPost
 from companyBlog.users.forms import RegistrationForm, LoginForm, UpdateUserForm
 from companyBlog.users.picture_handler import add_profile_pic
+
+users = Blueprint('users',__name__)

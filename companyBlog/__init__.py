@@ -5,6 +5,8 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY']='mysecret'
+
 ####################################
 ######### DATABSASE SETUP ##########
 basedir = os.path.abspath(os.path.dirname(__file__))

@@ -26,7 +26,7 @@ def register():
             return redirect(url_for('users.login'))
         except exc.IntegrityError:
             db.session.rollback()
-            flash('username or email already exists', 'warning')
+            flash('username or email already exists! update and retry', 'warning')
             
     
     return render_template('register.html',form=form)

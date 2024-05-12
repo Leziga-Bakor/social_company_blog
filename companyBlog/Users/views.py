@@ -4,6 +4,7 @@ from companyBlog import db
 from companyBlog.models import User, BlogPost
 from companyBlog.users.forms import RegistrationForm, LoginForm, UpdateUserForm
 from companyBlog.users.picture_handler import add_profile_pic
+from sqlalchemy import exc
 
 users = Blueprint('users',__name__)
 
@@ -13,14 +14,20 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
+        
         user = User(email = form.email.data,
                     username=form.username.data,
                     password=form.password.data)
 
-        db.session.add(user)
-        db.session.commit()
-        flash('Thank you for registering')
-        return redirect(url_for('user.login'))
+        try: 
+            db.session.add(user)
+            db.session.commit()
+            flash('Thank you for registering','success')
+            return redirect(url_for('users.login'))
+        except exc.IntegrityError:
+            db.session.rollback()
+            flash('username or email already exists', 'warning')
+            
     
     return render_template('register.html',form=form)
 
@@ -34,7 +41,7 @@ def login():
 
         user = User.query.filter_by(email=form.email.data).first()
         
-        if user.check_password(form.password.data) and user is not None:
+        if user is not None and user.check_password(form.password.data):
             login_user(user)
             flash('Login Successful')
 

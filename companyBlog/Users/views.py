@@ -43,11 +43,11 @@ def login():
         
         if user is not None and user.check_password(form.password.data):
             login_user(user)
-            flash('Login Successful')
+            flash('Login Successful','success')
 
             next = request.args.get('next')
             if next == None or not next[0]=='/':
-                return redirect(next)
+                next = url_for('core.index')
             return redirect(next)
     return render_template('login.html', form=form)
 
@@ -55,7 +55,9 @@ def login():
 @users.route("/logout")
 @login_required
 def logout():
-    login_user()
+    name = current_user.username
+    logout_user()
+    flash(f'Successfully Logged out {name}','success')
     return redirect(url_for("core.index"))
 
 # account (update UserForm)

@@ -65,7 +65,7 @@ def logout():
 @login_required
 def account():
 
-    form = UpdateUserForm
+    form = UpdateUserForm()
     if form.validate_on_submit():
 
         if form.picture.data:
@@ -80,7 +80,7 @@ def account():
         flash('User Account Updated!')
         return redirect(url_for('users.account'))
     elif request.method == 'GET':
-        form.userename.data = current_user.username
+        form.username.data = current_user.username
         form.email.data = current_user.email
 
     profile_image = url_for('static',filename='profile_pics/'+current_user.profile_image)

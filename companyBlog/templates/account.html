@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="jumbotron">
-        <div >
+        <div align="center">
             <h1>Welcome to the page for {{current_user.username}}</h1>
             <img src="{{url_for('static',filename='profile_pics/'+current_user.profile_image)}}" alt="profile image">
         </div>

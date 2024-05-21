@@ -8,7 +8,7 @@ blog_posts = Blueprint('blog_posts', __name__)
 
 
 # CREATE
-@blog_posts.route('/create',method=['GET','POST'])
+@blog_posts.route('/create',methods=['GET','POST'])
 @login_required
 def create_post():
 
@@ -41,9 +41,8 @@ def blog_post(blog_post_id):
         post=blog_post
     )
 
-
 #UPDATE
-@blog_posts.route('/<int:blog_post_id/update>', method=['GET','POST'])
+@blog_posts.route('/<int:blog_post_id>/update', methods=['GET','POST'])
 @login_required
 def update(blog_post_id):
     blog_post = BlogPost.query.get_or_404(blog_post_id)
@@ -67,7 +66,7 @@ def update(blog_post_id):
     return render_template('create_post.html', title ='Updating', form=form)
 
 #DELETE
-@blog_post.route('/<int:blog_post_id/delete>', method=['GET','POST'])
+@blog_posts.route('/<int:blog_post_id>/delete', methods=['GET','POST'])
 @login_required
 def delete_post(blog_post_id):
     

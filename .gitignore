@@ -2,3 +2,4 @@ venv/
 __pycache__/
 migrations/
 data.sqlite
+companyBlog/static/profile_pics/
